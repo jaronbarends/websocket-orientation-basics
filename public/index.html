@@ -20,10 +20,13 @@
 
 <body>
 	<h1>Main hub</h1>
-	<div id="qr-box" class="qr-box">
-		QR-code for remote:
-		<div id="qr-code" class="qr-code"></div>
-	</div>
+
+	<!-- Start qr-box -->
+		<div id="qr-box" class="qr-box">
+			QR-code for remote:
+			<div id="qr-code" class="qr-code"></div>
+		</div>
+	<!-- End qr-box -->
 
 	<div id="id-box" class="id-box">
 		user id: <span class="user-id"></span>
@@ -90,8 +93,10 @@
 	<script src="js/hub.js"></script>
 	<script src="js/device-view.js"></script>
 	<script src="js/table-view.js"></script>
-	<script src="js/socket.js"></script>
 	<script src="js/add-qr-code.js"></script>
+
+	<!-- add socket - anything that needs connectionready event should be added before this -->
+	<script src="js/socket.js"></script>
 
 </body>
 </html>
