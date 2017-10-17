@@ -8,14 +8,6 @@
 	// with sg so we can easily distinguish them from "normal" vars
 
 
-	/**
-	* handle server's connectionready event
-	* @returns {undefined}
-	*/
-	var connectionreadyHandler = function() {
-		$(document).trigger('connectionready.socket', io);
-	};
-	
 
 	/**
 	* initialize the socket, and send event containing it to the page
@@ -24,20 +16,13 @@
 	*/
 	var initIo = function() {
 		io = io();
-		io.on('connectionready', connectionreadyHandler);
+		io.on('connectionready', () => {
+			$(document).trigger('connectionready.socket', io);		
+		});
 	};
 	
 
-	/**
-	* initialize all
-	* @param {string} varname Description
-	* @returns {undefined}
-	*/
-	var init = function() {
-		initIo();
-	};
-
-	$(document).ready(init);
-
+	// kick off script when dom is ready
+	document.addEventListener('DOMContentLoaded', initIo);
 
 })(jQuery);

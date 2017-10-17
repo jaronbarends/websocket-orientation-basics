@@ -33,7 +33,6 @@
 	* @returns {undefined}
 	*/
 	var initIdentifier = function() {
-		// $('#id-box').find('.user-id').text(io.id);
 		console.log('init');
 		document.querySelector('#id-box .user-id').textContent = io.id;
 	};
@@ -108,7 +107,7 @@
 
 		sgUserColor = colors[Math.floor(len*Math.random())];
 
-		$('.user-color').css('background', sgUserColor);
+		document.getElementById('user-color').style.background = sgUserColor;
 	};
 
 
@@ -128,14 +127,10 @@
 	/**
 	* when remote is tilted, send orientation data and this device's id to the socket
 	* @param {event} e The tiltchange.deviceorientation event sent by device-orientation.js
-	* @param {object} data Data sent accompanying the event
 	* @returns {undefined}
 	*/
-	var tiltChangeHandler = function(e, data) {
-		console.log('tilt');
-		if (!data && e.detail) {
-			data = e.detail;
-		}
+	var tiltChangeHandler = function(e) {
+		const data = e.detail;
 
 		var tiltLR = Math.round(data.tiltLR),
 			tiltFB = Math.round(data.tiltFB),
@@ -165,7 +160,6 @@
 	* @returns {undefined}
 	*/
 	var initDeviceOrientation = function() {
-		// $('body').on('tiltchange.deviceorientation', tiltChangeHandler);
 		body.addEventListener('tiltchange.deviceorientation', tiltChangeHandler);
 	};
 
@@ -176,11 +170,11 @@
 	* @returns {undefined}
 	*/
 	var initLoginForm = function() {
-		$('#login-form').on('submit', function(e) {
+		document.getElementById('login-form').addEventListener('submit', function(e) {
 			e.preventDefault();
 
-			var $form = $(e.currentTarget);
-			sgUsername = $form.find('[name="username"]').val() || sgUsername;
+			var form = e.currentTarget;
+			sgUsername = form.querySelector('[name="username"]').value || sgUsername;
 
 			joinRoom();
 		});
@@ -203,29 +197,9 @@
 	* @returns {undefined}
 	*/
 	var initCalibrationForm = function() {
-		$('#calibration-form').on('submit', calibrationHandler);
+		document.getElementById('calibration-form').addEventListener('submit', calibrationHandler);
 	};
 
-
-	/**
-	* handle input from dummy
-	* @returns {undefined}
-	*/
-	const mimicTiltchange = function(e, data) {
-		e.preventDefault();
-		const tiltLRdelta = data.tiltLR || 0,
-			  tiltFBdelta = data.tiltFB || 0,
-			  dirDelta = data.dir || 0;
-		
-		var newData = {
-			tiltLR: sgOrientation.tiltLR + tiltLRdelta, //left-to-right tilt in degrees, where right is positive
-			tiltFB: sgOrientation.tiltFB + tiltFBdelta,//front-to-back tilt in degrees, where front is positive
-			dir: sgOrientation.dir + dirDelta,//compass direction the device is facing in degrees
-		};
-
-		$sgBody.trigger('tiltchange.deviceorientation', newData);
-	};
-	
 
 
 	/**
@@ -233,6 +207,7 @@
 	* @returns {undefined}
 	*/
 	var initRemote = function() {
+		console.log('initremote');
 		initIdentifier();
 		sgUsername = io.id;
 		setUserColor();
@@ -246,13 +221,13 @@
 	/**
 	* kick off the app once the socket connection is ready
 	* @param {event} e The ready.socket event sent by socket js
-	* @param {Socket} socket This client's socket
 	* @returns {undefined}
 	*/
-	var connectionReadyHandler = function(e, io) {
-		if (io) {
+	var connectionReadyHandler = function(e) {
+		console.log('remote: connectionReadyHandler');
+		// if (io) {
 			initRemote();
-		}
+		// }
 	};
 	
 	
@@ -263,10 +238,10 @@
 	*/
 	var init = function() {
 		$(document).on('connectionready.socket', connectionReadyHandler);
+		// document.addEventListener('connectionready.socket', connectionReadyHandler);
 	};
 	
 	$(document).ready(init);
-	// document.addEventListener('DOMContentReady', connectionReadyHandler);
 
 
 })(jQuery);

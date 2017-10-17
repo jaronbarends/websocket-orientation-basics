@@ -42,12 +42,12 @@
 
 
 	/**
-	* when remote is tilted, send orientation data and this device's id to the socket
+	* when remote is tilted, update sgOrientation for future updates
 	* @param {event} e The tiltchange.deviceorientation event sent by device-orientation.js
-	* @param {object} data Data sent accompanying the event
 	* @returns {undefined}
 	*/
-	var tiltChangeHandler = function(e, data) {
+	var tiltChangeHandler = function(e) {
+		const data = e.detail;
 		var tiltLR = Math.round(data.tiltLR),
 			tiltFB = Math.round(data.tiltFB),
 			dir = Math.round(data.dir);
@@ -70,7 +70,7 @@
 	* @returns {undefined}
 	*/
 	var initDeviceOrientation = function() {
-		$sgBody.on('tiltchange.deviceorientation', tiltChangeHandler);
+		document.body.addEventListener('tiltchange.deviceorientation', tiltChangeHandler);
 	};
 
 
@@ -92,11 +92,8 @@
 			dir: sgOrientation.dir + dirDelta,//compass direction the device is facing in degrees
 		};
 
-		// $sgBody.trigger('tiltchange.deviceorientation', newData);
 		const evt = new CustomEvent('tiltchange.deviceorientation', {detail: newData});
 		document.body.dispatchEvent(evt);
-		// const e = new CustomEvent('emptyingdatechange.smartbin', {detail: {dayName, dayNumber, monthName, monthNumber}});
-		// document.body.dispatchEvent(e);
 	};
 	
 
@@ -131,14 +128,12 @@
 	/**
 	* kick off the app once the socket connection is ready
 	* @param {event} e The ready.socket event sent by socket js
-	* @param {Socket} socket This client's socket
 	* @returns {undefined}
 	*/
-	var connectionReadyHandler = function(e, io) {
-		if (io) {
-			initDeviceOrientation();
-			initDummy();
-		}
+	var connectionReadyHandler = function(e) {
+		console.log('remote: connectionReadyHandler');
+		initDeviceOrientation();
+		initDummy();
 	};
 	
 	
@@ -149,6 +144,7 @@
 	*/
 	var init = function() {
 		$(document).on('connectionready.socket', connectionReadyHandler);
+		// document.addEventListener('connectionready.socket', connectionReadyHandler);
 	};
 
 	$(document).ready(init);

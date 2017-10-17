@@ -119,10 +119,11 @@
 	* @param {Socket} socket This client's socket
 	* @returns {undefined}
 	*/
-	var connectionReadyHandler = function(e, io) {
-		if (io) {
+	var connectionReadyHandler = function(e) {
+		console.log('hub: connectionReadyHandler');
+		// if (io) {
 			initHub();
-		}
+		// }
 	};
 	
 	
@@ -133,11 +134,12 @@
 	* @returns {undefined}
 	*/
 	var init = function() {
-		// $(document).on('connectionready.socket', connectionReadyHandler);
+		$(document).on('connectionready.socket', connectionReadyHandler);
 		// document.addEventListener('connectionready.socket', connectionReadyHandler);
 	};
 
-	// document.addEventListener('DOMContentLoaded', init);
-	document.addEventListener('DOMContentLoaded', connectionReadyHandler);
+	// document.addEventListener('connectionready.socket', connectionReadyHandler);
+	document.addEventListener('DOMContentLoaded', init);
+	// document.addEventListener('DOMContentLoaded', connectionReadyHandler);
 
 })();
