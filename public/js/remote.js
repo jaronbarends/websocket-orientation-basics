@@ -14,6 +14,7 @@
 	// define semi-global variables (vars that are "global" in this file's scope) and prefix them
 	// with sg so we can easily distinguish them from "normal" vars
 	var $sgBody = $('body'),
+		body = document.body,
 		sgUsername = '',
 		sgRole = 'remote',
 		sgUserColor,
@@ -32,7 +33,9 @@
 	* @returns {undefined}
 	*/
 	var initIdentifier = function() {
-		$('#id-box').find('.user-id').text(io.id);
+		// $('#id-box').find('.user-id').text(io.id);
+		console.log('init');
+		document.querySelector('#id-box .user-id').textContent = io.id;
 	};
 
 
@@ -76,22 +79,22 @@
 		io.on('joined', joinedHandler);
 		io.on('newuser', newUserHandler);
 		io.on('disconnect', userDisconnectHandler);
-	};
-
+	}
+;
 
 	/**
 	* send event to server to request entry to room
 	* @returns {undefined}
 	*/
 	var joinRoom = function() {
-		var data = {
+		var user = {
 				role: sgRole,
 				id: io.id,
 				username: sgUsername,
 				color: sgUserColor
 			};
 
-		io.emit('join', data);
+		io.emit('join', user);
 	};
 
 
@@ -129,6 +132,10 @@
 	* @returns {undefined}
 	*/
 	var tiltChangeHandler = function(e, data) {
+		console.log('tilt');
+		if (!data && e.detail) {
+			data = e.detail;
+		}
 
 		var tiltLR = Math.round(data.tiltLR),
 			tiltFB = Math.round(data.tiltFB),
@@ -158,7 +165,8 @@
 	* @returns {undefined}
 	*/
 	var initDeviceOrientation = function() {
-		$('body').on('tiltchange.deviceorientation', tiltChangeHandler);
+		// $('body').on('tiltchange.deviceorientation', tiltChangeHandler);
+		body.addEventListener('tiltchange.deviceorientation', tiltChangeHandler);
 	};
 
 
@@ -258,6 +266,7 @@
 	};
 	
 	$(document).ready(init);
+	// document.addEventListener('DOMContentReady', connectionReadyHandler);
 
 
 })(jQuery);

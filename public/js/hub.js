@@ -1,4 +1,4 @@
-(function($) {
+(function() {
 
 	'use strict';
 
@@ -91,13 +91,13 @@
 	* @returns {undefined}
 	*/
 	var joinRoom = function() {
-		var data = {
+		var user = {
 				role: sgRole,
 				id: io.id,
 			};
 
 		//tell socket we want to join the session
-		io.emit('join', data);
+		io.emit('join', user);
 	};
 		
 	
@@ -133,9 +133,11 @@
 	* @returns {undefined}
 	*/
 	var init = function() {
-		$(document).on('connectionready.socket', connectionReadyHandler);
+		// $(document).on('connectionready.socket', connectionReadyHandler);
+		// document.addEventListener('connectionready.socket', connectionReadyHandler);
 	};
 
-	document.addEventListener('DOMContentLoaded', init);
+	// document.addEventListener('DOMContentLoaded', init);
+	document.addEventListener('DOMContentLoaded', connectionReadyHandler);
 
-})(jQuery);
+})();

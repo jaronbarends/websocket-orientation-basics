@@ -92,7 +92,11 @@
 			dir: sgOrientation.dir + dirDelta,//compass direction the device is facing in degrees
 		};
 
-		$sgBody.trigger('tiltchange.deviceorientation', newData);
+		// $sgBody.trigger('tiltchange.deviceorientation', newData);
+		const evt = new CustomEvent('tiltchange.deviceorientation', {detail: newData});
+		document.body.dispatchEvent(evt);
+		// const e = new CustomEvent('emptyingdatechange.smartbin', {detail: {dayName, dayNumber, monthName, monthNumber}});
+		// document.body.dispatchEvent(e);
 	};
 	
 
