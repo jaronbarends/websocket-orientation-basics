@@ -1,4 +1,8 @@
-(function() {
+/*
+* initialization script for the connection with the socket server
+* this script should be included once in any page that needs to communicate with the socket server
+*/
+;(function() {
 
 	'use strict';
 

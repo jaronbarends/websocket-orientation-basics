@@ -1,3 +1,8 @@
+/*
+* device-orientation-dummy.js
+* 
+* dummy for emulating device orientation
+*/
 ;(function() {
 
 	'use strict';
