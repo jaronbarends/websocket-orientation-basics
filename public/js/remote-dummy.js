@@ -1,4 +1,4 @@
-;(function($) {
+;(function() {
 
 	'use strict';
 
@@ -13,8 +13,7 @@
 
 	// define semi-global variables (vars that are "global" in this file's scope) and prefix them
 	// with sg so we can easily distinguish them from "normal" vars
-	var $sgBody = $('body'),
-		sgUsername = '',
+	var sgUsername = '',
 		sgRole = 'remote',
 		sgUserColor,
 		sgOrientation = {
@@ -130,24 +129,14 @@
 	* @param {event} e The ready.socket event sent by socket js
 	* @returns {undefined}
 	*/
-	var connectionReadyHandler = function(e) {
-		console.log('remote: connectionReadyHandler');
+	var init = function(e) {
 		initDeviceOrientation();
 		initDummy();
 	};
 	
 	
-	/**
-	* initialize the app
-	* (or rather: set a listener for the socket to be ready, the handler will initialize the app)
-	* @returns {undefined}
-	*/
-	var init = function() {
-		$(document).on('connectionready.socket', connectionReadyHandler);
-		// document.addEventListener('connectionready.socket', connectionReadyHandler);
-	};
-
-	$(document).ready(init);
+	// init when connection is ready	
+	document.addEventListener('connectionready.socket', init);
 
 
 })(jQuery);

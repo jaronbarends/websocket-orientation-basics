@@ -1,4 +1,4 @@
-(function($) {
+(function() {
 
 	'use strict';
 
@@ -15,8 +15,9 @@
 	// with sg so we can easily distinguish them from "normal" vars
 	var sgRole = 'hub',
 		sgDeviceIdPrefix = 'device-',//prefix used for device elements' ids
-		$sgDevices = $('#devices-container'),
-		sgUsers = [];//array of users, in order of joining
+		sgDevices = document.getElementById('devices-container'),
+		sgUsers = [],//array of users, in order of joining
+		sgHiddenClass = 'u-is-hidden';
 
 
 	/**
@@ -36,20 +37,16 @@
 	*/
 	var createDevice = function(data) {
 		var deviceId = sgDeviceIdPrefix+data.id,
-			$clone = $('#clone-src')
-				.find('.user-device')
-				.clone()
-				.attr('id', deviceId)
-				.find('.user')
-					.text(data.username)
-				.end()
-				.find('.user-color')
-					.css('background', data.color)
-				.end()
-				.hide()
-				.appendTo($sgDevices)
-				.fadeIn();
+			clone = document.querySelector('#device-clone-src').cloneNode(true);
+
+		clone.id = deviceId;
+		clone.querySelector('.user').textContent = data.username;
+		clone.querySelector('.user-color').style.background = data.color;
+
+		sgDevices.appendChild(clone);
+		clone.classList.remove(sgHiddenClass);
 	};
+
 
 
 	/**
@@ -57,8 +54,13 @@
 	* @returns {undefined}
 	*/
 	var removeDevice = function(id) {
-		var deviceId = sgDeviceIdPrefix+id;
-		$('#'+deviceId).fadeOut(function(){$(this).remove();});
+		var deviceId = sgDeviceIdPrefix+id,
+			device = document.getElementById(deviceId);
+
+		if (device) {
+			device.classList.add(sgHiddenClass);
+			setTimeout(() => {device.remove();}, 500);
+		}
 	};
 	
 
@@ -107,17 +109,16 @@
 		orientation.tiltFB -= 90;//tiltFB = 0 when remote device is horizontal, we want it to correspond with vertical screen
 		orientation.dir += dirCorrection;
 
-		var rotateLR = "rotate3d(0,0,1, "+ orientation.tiltLR +"deg)",
+		const rotateLR = "rotate3d(0,0,1, "+ orientation.tiltLR +"deg)",
 			rotateFB = "rotate3d(1,0,0, "+ (orientation.tiltFB*-1)+"deg)",
 			rotateDir = "rotate3d(0,0,1, "+(orientation.dir*-1)+"deg)";
 
-		var $device = $('#'+sgDeviceIdPrefix+data.id).find('.device');//TODO: move devices in array and search array
-		
-		var css = {
-			transform: rotateLR+' '+rotateFB+' '+rotateDir
-		};
-
-		$device.css(css);
+		const device = document.querySelector('#'+sgDeviceIdPrefix+data.id+' .device'),
+			transform = rotateLR+' '+rotateFB+' '+rotateDir;
+			
+		if (device) {
+			device.style.transform = transform;
+		}
 	};
 
 
@@ -157,16 +158,9 @@
 	};
 	
 	
-	/**
 
-	* initialize the app
-	* (or rather: set a listener for the socket connection to be ready, the handler will initialize the app)
-	* @returns {undefined}
-	*/
-	var init = function() {
-		$(document).on('connectionready.socket', connectionReadyHandler);
-	};
+	// init when connection is ready	
+	document.addEventListener('connectionready.socket', initView);
+	// document.addEventListener('DOMContentLoaded', init);
 
-	document.addEventListener('DOMContentLoaded', init);
-
-})(jQuery);
+})();
