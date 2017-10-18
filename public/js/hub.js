@@ -113,33 +113,10 @@
 	};
 
 	
-	/**
-	* kick off the app once the socket is ready
-	* @param {event} e The ready.socket event sent by socket js
-	* @param {Socket} socket This client's socket
-	* @returns {undefined}
-	*/
-	var connectionReadyHandler = function(e) {
-		console.log('hub: connectionReadyHandler');
-		// if (io) {
-			initHub();
-		// }
-	};
-	
-	
-	/**
 
-	* initialize the app
-	* (or rather: set a listener for the socket connection to be ready, the handler will initialize the app)
-	* @returns {undefined}
-	*/
-	var init = function() {
-		$(document).on('connectionready.socket', connectionReadyHandler);
-		// document.addEventListener('connectionready.socket', connectionReadyHandler);
-	};
 
+	// init when connection is ready	
+	document.addEventListener('connectionready.socket', initHub);
 	// document.addEventListener('connectionready.socket', connectionReadyHandler);
-	document.addEventListener('DOMContentLoaded', init);
-	// document.addEventListener('DOMContentLoaded', connectionReadyHandler);
 
 })();

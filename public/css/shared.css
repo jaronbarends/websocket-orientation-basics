@@ -45,7 +45,7 @@ body {
 
 /*-- Start utility classes --*/
 	
-	.u-hidden {
+	.u-is-hidden {
 		display: none;
 	}
 	

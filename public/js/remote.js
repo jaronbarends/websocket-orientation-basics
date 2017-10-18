@@ -1,4 +1,4 @@
-;(function($) {
+;(function() {
 
 	'use strict';
 
@@ -13,9 +13,7 @@
 
 	// define semi-global variables (vars that are "global" in this file's scope) and prefix them
 	// with sg so we can easily distinguish them from "normal" vars
-	var $sgBody = $('body'),
-		body = document.body,
-		sgUsername = '',
+	var sgUsername = '',
 		sgRole = 'remote',
 		sgUserColor,
 		sgOrientation = {
@@ -45,7 +43,7 @@
 	*/
 	var joinedHandler = function(data) {
 		//this remote has been joined the room
-		$('#login-form').hide();
+		document.getElementById('login-form').classList.add('u-is-hidden');
 	};
 
 
@@ -55,7 +53,6 @@
 	* @returns {undefined}
 	*/
 	var newUserHandler = function(users) {
-		//console.log('new user has joined: '+data.id+' ('+data.role+')');
 	};
 
 
@@ -64,7 +61,6 @@
 	* @returns {undefined}
 	*/
 	var userDisconnectHandler = function() {
-		
 	};
 	
 
@@ -160,7 +156,7 @@
 	* @returns {undefined}
 	*/
 	var initDeviceOrientation = function() {
-		body.addEventListener('tiltchange.deviceorientation', tiltChangeHandler);
+		document.body.addEventListener('tiltchange.deviceorientation', tiltChangeHandler);
 	};
 
 
@@ -218,30 +214,8 @@
 	};
 
 
-	/**
-	* kick off the app once the socket connection is ready
-	* @param {event} e The ready.socket event sent by socket js
-	* @returns {undefined}
-	*/
-	var connectionReadyHandler = function(e) {
-		console.log('remote: connectionReadyHandler');
-		// if (io) {
-			initRemote();
-		// }
-	};
-	
-	
-	/**
-	* initialize the app
-	* (or rather: set a listener for the socket to be ready, the handler will initialize the app)
-	* @returns {undefined}
-	*/
-	var init = function() {
-		$(document).on('connectionready.socket', connectionReadyHandler);
-		// document.addEventListener('connectionready.socket', connectionReadyHandler);
-	};
-	
-	$(document).ready(init);
+	// init when connection is ready	
+	document.addEventListener('connectionready.socket', initRemote);
 
 
-})(jQuery);
+})();

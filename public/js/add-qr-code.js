@@ -1,4 +1,4 @@
-;(function($) {
+;(function() {
 
 	'use strict';
 
@@ -14,11 +14,9 @@
 			arr = url.split('/'),
 			remoteUrl = arr[0]+'//'+arr[2]+'/remote.html',
 			qrSrc = 'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl='+encodeURIComponent(remoteUrl),
-			$qrElm = $('#qr-code');
-
-			// console.log(remoteUrl);
+			qrElm = document.getElementById('qr-code');
 		
-		$qrElm.append('<img src="'+qrSrc+'"><br><a href="'+remoteUrl+'">'+remoteUrl+'</a>');
+		qrElm.innerHTML = '<img src="'+qrSrc+'"><br><a href="'+remoteUrl+'">'+remoteUrl+'</a>';
 	};
 
 
@@ -47,23 +45,15 @@
 	* @param {Socket} socket This client's socket
 	* @returns {undefined}
 	*/
-	const connectionReadyHandler = function(e, io) {
+	const init = function(e) {
+		addRemoteQRCode();
 		io.on('newuser', newUserHandler);
 		io.on('disconnect', disconnectHandler);
 	};
 	
 
 
-	/**
-	* 
-	* @param {string} varname Description
-	* @returns {undefined}
-	*/
-	var init = function() {
-		addRemoteQRCode();
-		$(document).on('connectionready.socket', connectionReadyHandler);
-	};
+	// init when connection is ready	
+	document.addEventListener('connectionready.socket', init);
 
-	$(document).ready(init);
-
-})(jQuery);
+})();

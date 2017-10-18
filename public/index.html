@@ -40,9 +40,9 @@
 			<!-- will be filled with joining devices -->
 		</div>
 
-		<div id="clone-src" class="u-hidden">
+		<div id="clone-src" class="u-is-hidden">
 
-			<div class="user-device">
+			<div id="device-clone-src" class="user-device u-is-hidden">
 				<div class="user">
 					<!-- user name here -->
 				</div>
@@ -72,7 +72,7 @@
 
 	<!-- Start table-view -->
 
-		<table id="orientation-table" class="table-view gyro-table u-hidden">
+		<table id="orientation-table" class="table-view gyro-table u-is-hidden">
 			<tr>
 				<th>tilt LR (gamma)</th>
 				<th>tilt FB (beta)</th>
@@ -82,9 +82,6 @@
 
 	<!-- End table-view -->
 
-
-	<!-- Including the JS libraries that we use -->
-	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 
 	<!-- Socket.io library -->
 	<script src="/socket.io/socket.io.js"></script>
