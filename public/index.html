@@ -19,7 +19,6 @@
 </head>
 
 <body>
-	<h1>Main hub</h1>
 
 	<!-- Start qr-box -->
 		<div id="qr-box" class="qr-box">
@@ -29,46 +28,56 @@
 	<!-- End qr-box -->
 
 	<div id="id-box" class="id-box">
-		user id: <span class="user-id"></span>
+		socket id: <span class="user-id"></span>
 	</div>
 
 
 	<!-- Start device-view -->
-	<div class="device-view">
-	
-		<div id="devices-container" class="devices-container">
-			<!-- will be filled with joining devices -->
-		</div>
 
-		<div id="clone-src" class="u-is-hidden">
-
-			<div id="device-clone-src" class="user-device u-is-hidden">
-				<div class="user">
-					<!-- user name here -->
-				</div>
-
-				<div class="device-3d-container">
-					<div class="device">
-						<div class="device__face device__face--front">
-							<div class="device__screen">
-								<div class="user-color"></div>
-							</div>
-							<div class="device__button"></div>
-						</div>
-						<div class="device__face device__face--back"></div>
-						<div class="device__face device__face--left"></div>
-						<div class="device__face device__face--right"></div>
-						<div class="device__face device__face--top"></div>
-						<div class="device__face device__face--bottom"></div>
-
-					</div>
-				</div>
+		<div class="device-view">
+		
+			<div id="devices-container" class="devices-container">
+				<!-- will be filled with joining devices -->
 			</div>
 
-		</div>
-	</div><!-- /.device-view -->
+			<div id="clone-src" class="u-is-hidden">
+
+				<div id="device-clone-src" class="user-device u-is-hidden">
+					<div class="user">
+						<!-- user name here -->
+					</div>
+
+					<div class="device-3d-container">
+						<div class="device">
+							<div class="device__face device__face--front">
+								<div class="device__screen"></div>
+								<div class="device__button"></div>
+							</div>
+							<div class="device__face device__face--back"></div>
+							<div class="device__face device__face--left"></div>
+							<div class="device__face device__face--right"></div>
+							<div class="device__face device__face--top"></div>
+							<div class="device__face device__face--bottom"></div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div><!-- /.device-view -->
 
 	<!-- End device-view -->
+
+
+
+	<!-- Start socket-reloader -->
+
+		<div id="socket-reloader">
+			<a id="reload-all-sockets" href="#">Reload all sockets</a>
+		</div>
+
+	<!-- End socket-reloader -->
+
 
 	<!-- Start table-view -->
 

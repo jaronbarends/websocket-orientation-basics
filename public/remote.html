@@ -14,6 +14,7 @@
 
 	<link type="text/css" rel="stylesheet" href="css/shared.css" />
 	<link type="text/css" rel="stylesheet" href="css/remote.css" />
+	<link type="text/css" rel="stylesheet" href="css/device-orientation-dummy.css" />
 
 </head>
 
@@ -23,7 +24,7 @@
 	<div class="content-width">
 
 		<div id="id-box" class="id-box">
-			user id: <span class="user-id"></span>
+			socket id: <span class="user-id"></span>
 		</div>
 
 		<form id="login-form" action="">
@@ -38,14 +39,27 @@
 			</form>
 		</div>
 
-		<div id="remote-dummy" class="remote-dummy">
-			<a href="#" id="lr-minus">LR -</a>
-			<a href="#" id="lr-plus">LR +</a>
-			<a href="#" id="fb-minus">FB -</a>
-			<a href="#" id="fb-plus">FB +</a>
-			<a href="#" id="dir-minus">Dir -</a>
-			<a href="#" id="dir-plus">Dir +</a>
-		</div>
+		<!-- Start device-orientation-dummy -->
+
+			<div id="remote-dummy" class="remote-dummy">
+				<a href="#" id="lr-minus">LR -</a>
+				<a href="#" id="lr-plus">LR +</a>
+				<a href="#" id="fb-minus">FB -</a>
+				<a href="#" id="fb-plus">FB +</a>
+				<a href="#" id="dir-minus"><span class="device-orientation-dummy__icon">↻</span> Dir -</a>
+				<a href="#" id="dir-plus"><span class="device-orientation-dummy__icon">↺</span> Dir +</a>
+			</div>
+
+		<!-- End device-orientation-dummy -->
+
+		
+		<!-- Start socket-reloader -->
+
+			<div id="socket-reloader">
+				<a id="reload-all-sockets" href="#">Reload all sockets</a>
+			</div>
+
+		<!-- End socket-reloader -->
 
 		
 
@@ -59,10 +73,12 @@
 	<script src="/socket.io/socket.io.js"></script>
 
 	<!-- Main JavaScript file -->
+	<script src="js/util-sockets.js"></script>
 	<script src="js/remote.js"></script>
+	<script src="js/reload-sockets.js"></script>
 
 	<!-- add socket - anything that needs connectionready event should be added before this -->
-	<script src="js/socket.js"></script>
+	<script src="js/connection-init.js"></script>
 	
 	<script src="js/device-orientation-dummy.js"></script>
 	<!-- add device orientation last, so other scripts are initialized -->

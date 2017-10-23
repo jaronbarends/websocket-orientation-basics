@@ -10,3 +10,18 @@
 	height: 1em;
 }
 
+
+
+.control {
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+}
+
+.control--brake {
+	background: #c00;
+}
+
+.control--gas {
+	background: #0c0;
+}

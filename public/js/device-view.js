@@ -26,7 +26,6 @@
 	* @returns {undefined}
 	*/
 	var joinedHandler = function(data) {
-		//this hub has been joined the room
 	};
 
 
@@ -41,7 +40,6 @@
 
 		clone.id = deviceId;
 		clone.querySelector('.user').textContent = data.username;
-		clone.querySelector('.user-color').style.background = data.color;
 
 		sgDevices.appendChild(clone);
 		clone.classList.remove(sgHiddenClass);

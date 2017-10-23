@@ -77,4 +77,4 @@
 	
 	document.addEventListener('connectionready.socket', initTableView);
 
-})(jQuery);
+})();

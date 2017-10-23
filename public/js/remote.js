@@ -15,7 +15,6 @@
 	// with sg so we can easily distinguish them from "normal" vars
 	var sgUsername = '',
 		sgRole = 'remote',
-		sgUserColor,
 		sgOrientation = {
 			tiltLR: 0,
 			tiltFB: 0,
@@ -31,18 +30,16 @@
 	* @returns {undefined}
 	*/
 	var initIdentifier = function() {
-		console.log('init');
 		document.querySelector('#id-box .user-id').textContent = io.id;
 	};
 
 
 	/**
-	* handle socket's acceptance of entry request
+	* handle socket's acceptance of entry request (so this page has entered the room)
 	* @param {object} data Data sent by the socket (currently empty)
 	* @returns {undefined}
 	*/
 	var joinedHandler = function(data) {
-		//this remote has been joined the room
 		document.getElementById('login-form').classList.add('u-is-hidden');
 	};
 
@@ -85,38 +82,10 @@
 		var user = {
 				role: sgRole,
 				id: io.id,
-				username: sgUsername,
-				color: sgUserColor
+				username: sgUsername
 			};
 
 		io.emit('join', user);
-	};
-
-
-	/**
-	* set an identifying color for this user
-	* @returns {undefined}
-	*/
-	var setUserColor = function() {
-		var colors = ['Aqua', 'Aquamarine', 'Black', 'Blue', 'BlueViolet', 'Brown', 'CadetBlue', 'Chartreuse', 'Chocolate', 'Coral', 'CornflowerBlue', 'Crimson', 'DarkBlue', 'DarkCyan', 'DarkGoldenRod', 'DarkGray', 'DarkGreen', 'DarkMagenta', 'DarkOliveGreen', 'DarkOrange', 'DarkOrchid', 'DarkRed', 'DarkSalmon', 'DarkSeaGreen', 'DarkSlateBlue', 'DarkSlateGray', 'DarkTurquoise', 'DarkViolet', 'DeepPink', 'DeepSkyBlue', 'DimGray', 'DodgerBlue', 'FireBrick', 'ForestGreen', 'Fuchsia', 'Gold', 'GoldenRod', 'Gray', 'Green', 'GreenYellow', 'HotPink', 'IndianRed ', 'Indigo ', 'LawnGreen', 'LightBlue', 'LightCoral', 'LightGreen', 'LightPink', 'LightSalmon', 'LightSeaGreen', 'LightSkyBlue', 'LightSlateGray', 'LightSteelBlue', 'Lime', 'LimeGreen', 'Magenta', 'Maroon', 'MediumAquaMarine', 'MediumBlue', 'MediumOrchid', 'MediumPurple', 'MediumSeaGreen', 'MediumSlateBlue', 'MediumTurquoise', 'MediumVioletRed', 'MidnightBlue', 'Navy', 'Olive', 'OliveDrab', 'Orange', 'OrangeRed', 'Orchid', 'PaleVioletRed', 'Peru', 'Pink', 'Plum', 'Purple', 'RebeccaPurple', 'Red', 'RosyBrown', 'RoyalBlue', 'SaddleBrown', 'Salmon', 'SandyBrown', 'SeaGreen', 'Sienna', 'SkyBlue', 'SlateBlue', 'SlateGray', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Tomato', 'Turquoise', 'Violet', 'Yellow', 'YellowGreen'],
-			len = colors.length;
-
-		sgUserColor = colors[Math.floor(len*Math.random())];
-
-		document.getElementById('user-color').style.background = sgUserColor;
-	};
-
-
-	/**
-	* send an event to the socket server that will be passed on to all sockets
-	* @returns {undefined}
-	*/
-	var sendEventToSockets = function(eventName, eventData) {
-		var data = {
-			eventName: eventName,
-			eventData: eventData
-		};
-		io.emit('passthrough', data);
 	};
 
 
@@ -145,7 +114,7 @@
 				id: io.id,
 				orientation: sgOrientation
 			};
-			sendEventToSockets('tiltchange', newData);
+			window.util.sockets.sendEventToSockets('tiltchange', newData);
 		}
 	};
 
@@ -203,10 +172,8 @@
 	* @returns {undefined}
 	*/
 	var initRemote = function() {
-		console.log('initremote');
 		initIdentifier();
 		sgUsername = io.id;
-		setUserColor();
 		initSocketListeners();
 		initDeviceOrientation();
 		initLoginForm();
