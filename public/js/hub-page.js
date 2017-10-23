@@ -22,9 +22,8 @@
 	* @returns {undefined}
 	*/
 	var initSocketListeners = function() {
-		io.on('joined', joinedHandler);
-		io.on('newuser', newUserHandler);
-		io.on('disconnect', disconnectHandler);
+		// add events you want to listen for, like this:
+		// io.on('newuser', newUserHandler);
 	};
 
 

@@ -20,6 +20,16 @@
 	var sgUsername = '',
 		sgRole = 'remote';
 
+
+	/**
+	* add event listeners for socket
+	* @returns {undefined}
+	*/
+	var initSocketListeners = function() {
+		// add events you want to listen for, like this:
+		// io.on('newuser', newUserHandler);
+	};
+
 	
 
 	/**
