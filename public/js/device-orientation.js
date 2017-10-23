@@ -1,3 +1,7 @@
+/*
+* Watch a device for changes in orientation
+* and send events when that happens
+*/
 ;(function() {
 
 	// define semi-global variables (vars that are "global" in this file's scope) and prefix them

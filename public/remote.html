@@ -27,11 +27,6 @@
 			socket id: <span class="user-id"></span>
 		</div>
 
-		<form id="login-form" action="">
-			<input type="text" name="username" value="" placeholder="Your name (please)">
-			<input type="submit" value="Go">
-		</form>
-
 		<div id="calibration-form">
 			<h2>Hold your device perpendicular to the main screen</h2>
 			<form id="calibration-form" action="">
@@ -74,13 +69,15 @@
 
 	<!-- Main JavaScript file -->
 	<script src="js/util-sockets.js"></script>
-	<script src="js/remote.js"></script>
+	<script src="js/remote-page.js"></script>
+	<script src="js/device-orientation-socket.io-bridge.js"></script>
+	<script src="js/device-orientation-socket.io-bridge-dummy.js"></script>
 	<script src="js/reload-sockets.js"></script>
+	<script src="js/show-socket-id.js"></script>
 
 	<!-- add socket - anything that needs connectionready event should be added before this -->
 	<script src="js/connection-init.js"></script>
 	
-	<script src="js/device-orientation-dummy.js"></script>
 	<!-- add device orientation last, so other scripts are initialized -->
 	<script src="js/device-orientation.js"></script>
 
