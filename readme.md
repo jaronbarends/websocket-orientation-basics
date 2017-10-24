@@ -51,20 +51,29 @@ The functionalities have been seperated as much as possible into different javas
 This is the server you run to serve the pages: `node socket-server`
 Or double click the batch file _START SOCKET SERVER.bat_ (this is just a file containing the command `node socket-server`)
 
-The socket-server serves files in the _public_ directory and handles traffic between sockets. Sockets can send events to the socket-server, and then you can add code to the server to handle that event. Mostly, you'll just want to pass it on. ? It may be an idea to create a special type of event that always gets passed through, containing some identifier?
+The socket-server serves files in the _public_ directory and handles traffic between sockets. Sockets can send events to the socket-server, and the socket-server sends some of its own events to the sockets.
+
+####Events socket-server.js listens for
+* `disconnect` Sent by socket.io when user disconnects
+* `join` Sent by clients when they want to join the room
+* `updateusers` Sent by clients when the users of the room change
+* `passthrough` Sent by clients to pass an event to all clients
+
+####Events socket-server.js sends
+* `connectionready` Sent when socket has established a connection. Listened for by _connection-init.js_, which then sends a `connectionready.socket` event
 
 ###socket.io.js
 
 External library for handling websockets
 
-###socket.js
+###public/js/connection-init.js
 
-Creates a websocket, and lets the _document_ trigger an event `ready.socket` with a data-object containing the socket. Other scripts can listen for that event, and store a reference to the socket.
+Creates a websocket, and lets the _document_ trigger an event `connectionready.socket`. Other scripts can listen for that event, and initialize themselves.
 
-###hub.js
+###hub-page.js
 
 
-###remote.js
+###remote-page.js
 
 
 

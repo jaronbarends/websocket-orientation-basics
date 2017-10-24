@@ -138,7 +138,6 @@ var createServer = function() {
 		});
 
 		socket.on('join', function(data) {
-			console.log('received join');
 			joinHandler(socket, data);
 		});
 

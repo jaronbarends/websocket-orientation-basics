@@ -42,7 +42,6 @@
 	/**
 	* kick off the app once the socket connection is ready
 	* @param {event} e The ready.socket event sent by socket js
-	* @param {Socket} socket This client's socket
 	* @returns {undefined}
 	*/
 	const init = function(e) {
