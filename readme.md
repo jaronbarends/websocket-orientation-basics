@@ -68,7 +68,7 @@ External library for handling websockets
 
 ### public/js/connection-init.js
 
-Creates a websocket, and lets the _document_ trigger an event `connectionready.socket`. Other scripts can listen for that event, and initialize themselves.
+Creates a websocket, and lets the `document` trigger an event `connectionready.socket`. Other scripts can listen for that event, and initialize themselves.
 
 ### hub-page.js
 
